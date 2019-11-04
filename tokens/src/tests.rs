@@ -3,7 +3,7 @@
 #![cfg(test)]
 
 use super::*;
-use mock::{Balance, ExtBuilder, Runtime, Tokens, ALICE, BOB, TEST_TOKEN_ID};
+use mock::{Balance, ExtBuilder, Runtime, System, TestEvent, Tokens, ALICE, BOB, TEST_TOKEN_ID};
 use srml_support::{assert_noop, assert_ok};
 
 #[test]
@@ -76,12 +76,15 @@ fn transfer_should_work() {
 		.one_hundred_for_alice_n_bob()
 		.build()
 		.execute_with(|| {
-			assert_ok!(<Tokens as MultiCurrency<_>>::transfer(TEST_TOKEN_ID, &ALICE, &BOB, 50));
+			assert_ok!(Tokens::transfer(Some(ALICE).into(), BOB, TEST_TOKEN_ID, 50));
 			assert_eq!(Tokens::balance(TEST_TOKEN_ID, &ALICE), 50);
 			assert_eq!(Tokens::balance(TEST_TOKEN_ID, &BOB), 150);
 
+			let transferred_event = TestEvent::tokens(RawEvent::Transferred(TEST_TOKEN_ID, ALICE, BOB, 50));
+			assert!(System::events().iter().any(|record| record.event == transferred_event));
+
 			assert_noop!(
-				<Tokens as MultiCurrency<_>>::transfer(TEST_TOKEN_ID, &ALICE, &BOB, 60),
+				Tokens::transfer(Some(ALICE).into(), BOB, TEST_TOKEN_ID, 60),
 				"balance too low",
 			);
 			assert_eq!(Tokens::balance(TEST_TOKEN_ID, &ALICE), 50);

@@ -4,12 +4,22 @@
 
 use primitives::H256;
 use sr_primitives::{testing::Header, traits::IdentityLookup, Perbill};
-use srml_support::{impl_outer_origin, parameter_types};
+use srml_support::{impl_outer_event, impl_outer_origin, parameter_types};
 
 use super::*;
 
 impl_outer_origin! {
 	pub enum Origin for Runtime {}
+}
+
+mod tokens {
+	pub use crate::Event;
+}
+
+impl_outer_event! {
+	pub enum TestEvent for Runtime {
+		tokens<T>,
+	}
 }
 
 // Workaround for https://github.com/rust-lang/rust/issues/26925 . Remove when sorted.
@@ -33,18 +43,19 @@ impl system::Trait for Runtime {
 	type AccountId = AccountId;
 	type Lookup = IdentityLookup<Self::AccountId>;
 	type Header = Header;
-	type Event = ();
+	type Event = TestEvent;
 	type BlockHashCount = BlockHashCount;
 	type MaximumBlockWeight = MaximumBlockWeight;
 	type MaximumBlockLength = MaximumBlockLength;
 	type AvailableBlockRatio = AvailableBlockRatio;
 	type Version = ();
 }
+pub type System = system::Module<Runtime>;
 
 type CurrencyId = u32;
 pub type Balance = u64;
 impl Trait for Runtime {
-	type Event = ();
+	type Event = TestEvent;
 	type Balance = Balance;
 	type CurrencyId = CurrencyId;
 }
