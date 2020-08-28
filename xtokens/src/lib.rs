@@ -28,7 +28,13 @@ pub trait Trait: frame_system::Trait {
 	type Event: From<Event<Self>> + Into<<Self as frame_system::Trait>::Event>;
 
 	/// The balance type
-	type Balance: Parameter + Member + AtLeast32Bit + Default + Copy + MaybeSerializeDeserialize;
+	type Balance: Parameter
+		+ Member
+		+ AtLeast32Bit
+		+ Default
+		+ Copy
+		+ MaybeSerializeDeserialize
+		+ num_traits::sign::Unsigned;
 
 	/// The currency ID type
 	type CurrencyId: Parameter + Member + Copy + MaybeSerializeDeserialize + Ord + Into<Vec<u8>> + TryFrom<Vec<u8>>;

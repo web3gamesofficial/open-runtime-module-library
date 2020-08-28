@@ -67,6 +67,11 @@ impl<
 			}
 		})
 	}
+
+	#[cfg(feature = "runtime-benchmarks")]
+	fn successful_origin() -> O {
+		unimplemented!()
+	}
 }
 
 /// Origin for the authority module.
@@ -194,7 +199,7 @@ decl_module! {
 
 		/// Schdule a dispatchable to be dispatched at later block.
 		/// This is the only way to dispatch a call with `DelayedOrigin`.
-		#[weight = 0]
+		#[weight = 10_000]
 		pub fn schedule_dispatch(
 			origin,
 			when: DispatchTime<T::BlockNumber>,
@@ -243,7 +248,7 @@ decl_module! {
 		}
 
 		/// Fast track a scheduled dispatchable.
-		#[weight = 0]
+		#[weight = 10_000]
 		pub fn fast_track_scheduled_dispatch(
 			origin,
 			initial_origin: T::PalletsOrigin,
@@ -272,7 +277,7 @@ decl_module! {
 		}
 
 		/// Delay a scheduled dispatchable.
-		#[weight = 0]
+		#[weight = 10_000]
 		pub fn delay_scheduled_dispatch(
 			origin,
 			initial_origin: T::PalletsOrigin,
@@ -287,7 +292,7 @@ decl_module! {
 		}
 
 		/// Cancel a scheduled dispatchable.
-		#[weight = 0]
+		#[weight = 10_000]
 		pub fn cancel_scheduled_dispatch(
 			origin,
 			initial_origin: T::PalletsOrigin,
