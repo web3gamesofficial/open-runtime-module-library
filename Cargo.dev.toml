@@ -34,8 +34,6 @@ split-debuginfo = "unpacked"
 frame-benchmarking = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
 frame-support = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
 frame-system = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
-max-encoded-len = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
-max-encoded-len-derive = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
 pallet-authority-discovery = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
 pallet-authorship = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
 pallet-balances = { git = "https://github.com/paritytech//substrate", rev = "74101dc21cfffb4c2d014fcc28edc166d5ca1b16" }
